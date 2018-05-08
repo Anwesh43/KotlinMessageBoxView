@@ -94,10 +94,10 @@ class MessageBoxView (ctx : Context) : View(ctx) {
             canvas.save()
             canvas.translate(w/2, h/2)
             paint.color = Color.WHITE
-            canvas.drawTail(-r, r, state.scales[0], paint)
-            canvas.drawBox(-r, size, state.scales[1], paint)
+            canvas.drawTail(r, r * 0.8f, state.scales[0], paint)
+            canvas.drawBox(-r * 1.8f, size, state.scales[1], paint)
             paint.color = Color.BLACK
-            canvas.drawMultipleLines(-r - size, 0.8f * size, size, 3, state.scales[2], paint)
+            canvas.drawMultipleLines((-r * 1.8f) - size, 0.8f * size, size, 3, state.scales[2], paint)
             paint.color = Color.WHITE
             canvas.drawCircle(0f, 0f, r, paint)
             paint.color = Color.BLACK
@@ -165,13 +165,13 @@ fun Canvas.drawMultipleLines(yStart : Float, size : Float, h : Float,  n : Int, 
     paint.color = Color.BLACK
     paint.strokeWidth = size/20
     paint.strokeCap = Paint.Cap.ROUND
-    val gap : Float = h / (2 * n + 1)
+    val gap : Float = h / (n + 1)
     val w : Float = (size / 2 ) * scale
     save()
-    translate(yStart, 0f)
+    translate(0f, yStart)
     var y : Float = gap
     for (i in 1..n) {
-        drawLine(-w, 0f, w, 0f, paint)
+        drawLine(-w, y, w, y, paint)
         y += gap
     }
     restore()
