@@ -13,13 +13,17 @@ class MessageBoxView (ctx : Context) : View(ctx) {
 
     private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    override fun onDraw(canvas : Canvas) {
+    private val renderer : Renderer = Renderer(this)
 
+    override fun onDraw(canvas : Canvas) {
+        renderer.render(canvas, paint)
     }
 
     override fun onTouchEvent(event : MotionEvent) : Boolean {
-        when (event.action == MotionEvent.ACTION_DOWN) {
-
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                renderer.handleTap()
+            }
         }
         return true
     }
@@ -148,7 +152,7 @@ fun Canvas.drawBox(y : Float, size : Float, scale : Float, paint : Paint) {
     drawRect(RectF(-size/2, y - size * scale, size/2, y), paint)
 }
 
-fun Canvas.drawMultipleLines(yStart : Float, size : Float, h : Float,  n : Int, scale : Float paint : Paint) {
+fun Canvas.drawMultipleLines(yStart : Float, size : Float, h : Float,  n : Int, scale : Float, paint : Paint) {
     paint.color = Color.BLACK
     paint.strokeWidth = size/20
     paint.strokeCap = Paint.Cap.ROUND
