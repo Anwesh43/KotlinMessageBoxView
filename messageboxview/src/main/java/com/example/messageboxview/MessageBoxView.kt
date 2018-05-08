@@ -4,6 +4,7 @@ package com.example.messageboxview
  * Created by anweshmishra on 09/05/18.
  */
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.MotionEvent
@@ -133,6 +134,14 @@ class MessageBoxView (ctx : Context) : View(ctx) {
             messageBox.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : MessageBoxView {
+            val view : MessageBoxView = MessageBoxView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
