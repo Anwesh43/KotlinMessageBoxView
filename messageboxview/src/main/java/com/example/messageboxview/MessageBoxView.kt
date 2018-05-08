@@ -108,6 +108,29 @@ class MessageBoxView (ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+
+    data class Renderer (var view : MessageBoxView) {
+
+        val messageBox : MessageBox = MessageBox(0)
+
+        val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            messageBox.draw(canvas, paint)
+            animator.animate {
+                messageBox.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            messageBox.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
 
 fun Canvas.drawTail(y:Float, size : Float,  scale : Float, paint : Paint) {
